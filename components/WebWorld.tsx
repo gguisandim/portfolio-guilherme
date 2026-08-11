@@ -10,6 +10,7 @@ const themeClassMap = {
   artistico: "theme-artistico",
   english: "theme-english",
   bolos: "theme-bolos",
+  prilei: "theme-prilei",
   luigi: "theme-luigi"
 } as const;
 
@@ -295,6 +296,18 @@ export function WebWorld() {
             <span className="ambient-heart heart-pop heart-e">♥</span>
           </div>
 
+
+          <div className="ambient-layer ambience-prilei">
+            <span className="institution-grid" />
+            <span className="institution-block block-a ambient-float-slow" />
+            <span className="institution-block block-b ambient-float-fast" />
+            <span className="institution-block block-c ambient-float-slow" />
+            <span className="institution-line line-a" />
+            <span className="institution-line line-b" />
+            <span className="institution-mark mark-a">UFPA</span>
+            <span className="institution-mark mark-b">PRILEI</span>
+          </div>
+
           <div className="ambient-layer ambience-luigi">
             <span className="ambient-trail trail-red" />
             <span className="ambient-trail trail-blue" />
@@ -348,7 +361,12 @@ export function WebWorld() {
                               <small>{project.kicker}</small>
                             </div>
                           </div>
-                          <span className="site-index">site_0{index + 1}</span>
+                          <div className="site-status-wrap">
+                            {project.status && (
+                              <span className="project-status">{project.status}</span>
+                            )}
+                            <span className="site-index">site_0{index + 1}</span>
+                          </div>
                         </header>
 
                         <div className="insta-media" data-depth="12">

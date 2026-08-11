@@ -4,10 +4,11 @@ export type Project = {
   tags: string[];
   href?: string;
   kicker?: string;
-  theme?: "artistico" | "english" | "bolos" | "luigi";
+  theme?: "artistico" | "english" | "bolos" | "prilei" | "luigi";
   screenTitle?: string;
   screenCaption?: string;
   image?: string;
+  status?: string;
 };
 
 export const webProjects: Project[] = [
@@ -48,6 +49,18 @@ export const webProjects: Project[] = [
     image: "/projects/bolos-tamires.png"
   },
   {
+    title: "PRILEI / UFPA",
+    description:
+      "Site institucional para apresentação do programa, cursos, editais, equipe e informações acadêmicas.",
+    tags: ["HTML", "CSS", "Institucional"],
+    href: "https://prilei.ufpa.br",
+    kicker: "institucional / ufpa",
+    theme: "prilei",
+    screenTitle: "site institucional",
+    screenCaption: "HTML · CSS · estrutura institucional",
+    image: "/projects/prilei.png"
+  },
+  {
     title: "Portfólio Luigi",
     description:
       "Portfólio fotográfico artístico com exposições, ambientes independentes e atmosfera de fotografia em baixa luz.",
@@ -57,7 +70,8 @@ export const webProjects: Project[] = [
     theme: "luigi",
     screenTitle: "long exposure",
     screenCaption: "luz vermelha · azul violeta · ambientes expositivos",
-    image: "/projects/portfolio-luigi.png"
+    image: "/projects/portfolio-luigi.png",
+    status: "EM CONSTRUÇÃO"
   }
 ];
 
