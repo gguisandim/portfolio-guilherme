@@ -41,10 +41,14 @@ http://localhost:3000
 - cada card customizado para um site específico.
 
 ### Dados
-- `ScrollTrigger`;
-- SVG é desenhado conforme o scroll;
-- barras crescem;
-- contadores animam.
+- entrada como festival / vista aérea de drone;
+- mapa top-down mais detalhado, com palcos, caminhos, público, árvores, food trucks, estacionamento, POIs e roda-gigante;
+- câmera aproxima via `ScrollTrigger`, mas o mapa também pode ser arrastado manualmente;
+- controles de zoom, reset e filtros de POI/rota;
+- SIRG STAGE leva diretamente ao card do projeto;
+- projetos aparecem como passes/cartas de festival;
+- gráficos e contadores animados dentro dos cards;
+- números marcados como demonstração visual, não métricas reais.
 
 ### System
 - seção pinada no desktop;

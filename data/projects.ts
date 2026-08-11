@@ -75,6 +75,12 @@ export const dataProjects: Project[] = [
     tags: ["Python", "Image Processing", "Plugins"],
     href: "https://github.com/gguisandim/Processamento-de-Imagens-2026v2",
     kicker: "image / analysis"
+  },
+  {
+    title: "BI & Relatórios",
+    description: "Tratamento, indicadores e visualização de dados para apoiar acompanhamento e tomada de decisão.",
+    tags: ["Power BI", "SQL", "Excel"],
+    kicker: "bi / dashboards"
   }
 ];
 
