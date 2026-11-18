@@ -75,48 +75,99 @@ export const webProjects: Project[] = [
   }
 ];
 
-export const dataProjects: Project[] = [
+/** Product narratives live here; previews below are deliberately illustrative, not screenshots. */
+export type AppProject = Project & {
+  id: "sirg" | "wedding" | "pipinho";
+  category: string;
+  focus: string;
+  features: [string, string, string];
+  flow: [string, string, string];
+};
+
+export const appsProjects: AppProject[] = [
   {
+    id: "sirg",
     title: "SIRG",
-    description: "Registros acadêmicos, frequência, justificativas, relatórios e indicadores.",
+    category: "Gestão acadêmica",
+    focus: "Organização de registros e acompanhamento",
+    description:
+      "Uma aplicação para centralizar registros acadêmicos, frequência, justificativas e relatórios em um só fluxo de trabalho.",
+    features: ["Registros acadêmicos", "Controle de frequência", "Relatórios e consultas"],
+    flow: ["Interface", "Flask", "SQLAlchemy"],
     tags: ["Python", "Flask", "SQLAlchemy"],
-    href: "https://github.com/gguisandim/SIRG",
-    kicker: "data / management"
+    href: "https://github.com/gguisandim/SIRG"
   },
   {
-    title: "Processamento de Imagens",
-    description: "Aplicação modular com plugins, manipulação de imagens e algoritmos em Python.",
-    tags: ["Python", "Image Processing", "Plugins"],
-    href: "https://github.com/gguisandim/Processamento-de-Imagens-2026v2",
-    kicker: "image / analysis"
+    id: "wedding",
+    title: "Wedding BF",
+    category: "Plataforma full-stack",
+    focus: "Convites, convidados e administração",
+    description:
+      "Sistema de convites com organização de convidados, respostas e um painel administrativo, apoiado por autenticação e banco de dados.",
+    features: ["Convites digitais", "Gestão de convidados", "Painel administrativo"],
+    flow: ["Next.js", "Supabase", "Banco de dados"],
+    tags: ["Next.js", "Supabase", "Full-stack"],
+    href: "https://github.com/gguisandim/wedding-bf"
   },
   {
-    title: "BI & Relatórios",
-    description: "Tratamento, indicadores e visualização de dados para apoiar acompanhamento e tomada de decisão.",
-    tags: ["Power BI", "SQL", "Excel"],
-    kicker: "bi / dashboards"
+    id: "pipinho",
+    title: "Pipinho Finance",
+    category: "Finanças pessoais",
+    focus: "Controle financeiro com Telegram e inteligência artificial",
+    description:
+      "Aplicação de finanças pessoais com registro de lançamentos por mensagens, interpretação assistida por IA e organização do histórico financeiro.",
+    features: ["Registro via Telegram", "Interpretação de mensagens com IA", "Histórico e organização financeira"],
+    flow: ["Telegram", "Node.js", "PostgreSQL"],
+    tags: ["TypeScript", "Next.js", "PostgreSQL", "Redis", "Telegram", "IA"]
+    // Repositório direto não confirmado: a página oferece uma busca no perfil.
   }
 ];
 
-export const systemProjects: Project[] = [
+export type EngineeringProject = Project & {
+  id: "images" | "umbra" | "distributed" | "graphics";
+  discipline: string;
+  observation: string;
+};
+
+export const engineeringProjects: EngineeringProject[] = [
   {
-    title: "Wedding BF",
-    description: "Plataforma de convites e painel administrativo com autenticação e banco de dados.",
-    tags: ["Next.js", "Supabase", "Database"],
-    href: "https://github.com/gguisandim/wedding-bf",
-    kicker: "platform / full stack"
+    id: "images",
+    title: "Processamento de Imagens",
+    discipline: "Visão computacional",
+    observation: "Transformações visuais, filtros e operações sobre imagens.",
+    description:
+      "Aplicação modular em Python dedicada a operações e algoritmos de processamento de imagens.",
+    tags: ["Python", "OpenCV", "Plugins"],
+    href: "https://github.com/gguisandim/Processamento-de-Imagens-2026v2"
   },
   {
+    id: "umbra",
+    title: "Umbra Trail",
+    discipline: "Game engineering",
+    observation: "Mapas, sistemas de fases e narrativa ramificada.",
+    description:
+      "Jogo com exploração, fases interligadas e ferramentas para construção e validação de ambientes.",
+    tags: ["TypeScript", "Phaser", "World Lab"],
+    href: "https://github.com/gguisandim/dsai-ap1-2Drogue"
+  },
+  {
+    id: "distributed",
     title: "Sistema Distribuído",
-    description: "Comunicação entre processos, filas, estados e serviços distribuídos.",
+    discipline: "Sistemas e comunicação",
+    observation: "Processos independentes e troca de mensagens.",
+    description:
+      "Projeto acadêmico voltado à comunicação entre processos e coordenação de serviços distribuídos.",
     tags: ["Python", "Sockets", "Threads"],
-    href: "https://github.com/gguisandim/semfuro-sd-novo",
-    kicker: "distributed / network"
+    href: "https://github.com/gguisandim/semfuro-sd-novo"
   },
   {
-    title: "Infra & Suporte",
-    description: "Linux, troubleshooting, monitoramento e manutenção de ambientes e serviços.",
-    tags: ["Linux", "Infra", "Support"],
-    kicker: "ops / reliability"
+    id: "graphics",
+    title: "Computação Gráfica",
+    discipline: "Geometria e renderização",
+    observation: "Geometrias, projeções e transformações espaciais.",
+    description:
+      "Experimentos acadêmicos de computação gráfica e representação geométrica.",
+    tags: ["JavaScript", "Geometria", "Gráficos"],
+    href: "https://github.com/gguisandim/trabalho-computacao-grafica"
   }
 ];

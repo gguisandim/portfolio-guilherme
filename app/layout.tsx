@@ -4,7 +4,7 @@ import { SiteChrome } from "@/components/SiteChrome";
 
 export const metadata: Metadata = {
   title: "Guilherme Sandim — Portfolio",
-  description: "Portfólio interativo dividido entre Web, Dados e Systems."
+  description: "Portfólio interativo com projetos Web, aplicações e experimentos de engenharia."
 };
 
 export default function RootLayout({

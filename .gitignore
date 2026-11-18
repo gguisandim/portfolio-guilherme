@@ -1,19 +1,28 @@
-# dependencies
-/node_modules
+# Dependencies
+/node_modules/
 
 # Next.js
 /.next/
 /out/
+/build/
+/dist/
 
-# production
-/build
+# Temporary files and caches
+/.sites-runtime/
+/.wrangler/
+/.npm/
+/.turbo/
+/coverage/
+*.tsbuildinfo
 
-# environment variables
+# Environment variables
 .env
 .env.local
 .env.*.local
+.env.production
+.env.development
 
-# logs
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -22,3 +31,14 @@ pnpm-debug.log*
 # OS
 .DS_Store
 Thumbs.db
+
+# Editor temporary files
+*.swp
+*.swo
+*~
+
+# Local backups
+*.bak
+
+#outros
+.openai/

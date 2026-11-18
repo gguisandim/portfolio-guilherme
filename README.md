@@ -1,126 +1,56 @@
-# Guilherme Portfolio — Multipage Interactive GSAP
+# Guilherme Sandim — Portfólio multipágina
 
-Recomeço do projeto como **portfólio multipágina**, inspirado na lógica de experiências interativas de referências como Creative Ed, mas com identidade e organização próprias.
+Portfólio Next.js com três áreas de projetos e duas seções pessoais.
 
-## Rotas
-
-```text
-/          hub principal
-/web       projetos visuais com cards pendurados e arrastáveis
-/dados     laboratório de dados com gráfico controlado pelo scroll
-/system    arquitetura interativa + projetos full-stack / infra
-/lab       desktop explorável com janelas arrastáveis
-/about     página editorial / colagem
-```
-
-## Rodando
+## Iniciar
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abra:
+Abra `http://localhost:3000`.
 
-```text
-http://localhost:3000
-```
+## Rotas
 
-## Principais interações
+| Rota | Conteúdo |
+| --- | --- |
+| `/` | Hub de navegação |
+| `/web` | Projetos visuais, preservados da versão original |
+| `/apps` | Museu de Software: SIRG, Wedding BF e Pipinho Finance |
+| `/engineering` | Field Notes: Processamento de Imagens, Umbra Trail, Sistema Distribuído e Computação Gráfica |
+| `/lab` | Desktop experimental |
+| `/about` | Página de apresentação |
+| `/dados` | Redirecionamento para `/engineering` |
+| `/system` | Redirecionamento para `/apps` |
 
-### Home
-- avatar reage ao mouse;
-- cards/orbitas levam para mundos diferentes;
-- entrada tipográfica com GSAP.
+## O que foi alterado
 
-### Web
-- card por vez na tela;
-- botões prev/next + dots de navegação;
-- estética synth/Atari com scanlines, glow e starfield;
-- cards 2.5D com tilt no hover;
-- cada card customizado para um site específico.
+- Criados `components/AppsWorld.tsx` e `components/EngineeringWorld.tsx`.
+- Home e navegação atualizadas para WEB / APPS / ENGINEERING.
+- Atualizada a curadoria em `data/projects.ts`.
+- Adicionados estilos específicos ao final de `app/globals.css`, removidos os estilos obsoletos de DATA e SYSTEM.
+- Removidos `components/DataWorld.tsx` e `components/SystemWorld.tsx`.
+- Mantidas as áreas WEB, LAB e ABOUT.
 
-### Dados
-- entrada como festival / vista aérea de drone;
-- mapa top-down mais detalhado, com palcos, caminhos, público, árvores, food trucks, estacionamento, POIs e roda-gigante;
-- câmera aproxima via `ScrollTrigger`, mas o mapa também pode ser arrastado manualmente;
-- controles de zoom, reset e filtros de POI/rota;
-- SIRG STAGE leva diretamente ao card do projeto;
-- projetos aparecem como passes/cartas de festival;
-- gráficos e contadores animados dentro dos cards;
-- números marcados como demonstração visual, não métricas reais.
+## Interações
 
-### System
-- seção pinada no desktop;
-- arquitetura Browser → Next → API → Supabase → PostgreSQL;
-- nós clicáveis;
-- packet animado;
-- Wedding BF destacado como plataforma full-stack.
+**APPS** é uma exposição minimalista de três aplicações: índice de obras, visualização editorial específica de cada produto, descrição, funcionalidades, tecnologias e navegação anterior/próximo. Os visuais são **estudos conceituais**, não screenshots reais.
 
-### Lab
-- desktop próprio (`GUILHERME.OS`);
-- janelas arrastáveis;
-- apps/atalhos;
-- terminal visual;
-- links sociais.
+**ENGINEERING** mostra uma ficha para cada estudo, com um pequeno experimento ilustrativo: filtro de imagem, variantes visuais de um tilemap, passos da troca de mensagens e rotação de um wireframe. Essas demonstrações **não executam o código dos repositórios** nem representam resultados verificados.
 
-### About
-- estética de recorte editorial;
-- stickers;
-- composição preto/vermelho;
-- avatar como pôster.
+## Personalização
 
-## Onde editar
+- Dados e links: `data/projects.ts`.
+- Museu de Software e estudos visuais APPS: `components/AppsWorld.tsx`.
+- Experimentos ENGINEERING: `components/EngineeringWorld.tsx`.
+- Layout e responsividade: final de `app/globals.css`.
+- Outros projetos visuais: `public/projects/`.
 
-Projetos:
-```text
-data/projects.ts
-```
+Para substituir um estudo conceitual por uma captura real de aplicação, adicione a imagem em `public/projects/` e adapte a função `MuseumArtwork` no `components/AppsWorld.tsx` para utilizar `Image` do Next.js. O link direto do GitHub do Pipinho Finance não foi confirmado; ajuste o campo `href` em `data/projects.ts` quando tiver o endereço.
 
-Componentes:
-```text
-components/HomeHub.tsx
-components/WebWorld.tsx
-components/DataWorld.tsx
-components/SystemWorld.tsx
-components/LabWorld.tsx
-components/AboutWorld.tsx
-```
+## APPS — Museu de Software (edição visual 02)
 
-Estética:
-```text
-app/globals.css
-```
+A seção `/apps` usa uma galeria editorial de três aplicações (SIRG, Wedding BF e Pipinho Finance). Cada obra possui uma representação visual **conceitual**, não uma captura real da aplicação. A seleção funciona pela lista lateral, pelos indicadores, pelos botões anterior/próximo e pelas teclas de seta esquerda/direita. O layout possui versão responsiva e respeita `prefers-reduced-motion`.
 
-Identidade:
-```text
-public/avatar.png
-```
-
-## Referências incluídas
-
-As imagens que você enviou foram copiadas apenas como referência visual:
-
-```text
-public/references/about-reference.png
-public/references/web-reference.png
-public/references/lab-reference.png
-```
-
-Elas não são usadas diretamente no layout.
-
-## Próximas melhorias sugeridas
-
-- GSAP Flip para transições de cards → página de projeto;
-- screenshots reais dos projetos;
-- rota `/project/[slug]`;
-- transição de página mais elaborada;
-- terminal realmente interativo no `/lab`;
-- salvar posição das janelas do LAB;
-- animação compartilhada do avatar entre Home e About;
-- integração opcional com GitHub API em build time.
-
-
-## Imagens dos cards WEB
-
-As imagens reais usadas nos cards ficam em `public/projects/`.
+Para editar a página: `components/AppsWorld.tsx`; estilos específicos de APPS ficam no fim de `app/globals.css`, no bloco identificado por `APPS / MUSEU DE SOFTWARE — edição 02`. As demais páginas permanecem como antes.

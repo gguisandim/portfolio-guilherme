@@ -9,8 +9,8 @@ import gsap from "gsap";
 const links = [
   ["/", "Home"],
   ["/web", "Web"],
-  ["/dados", "Dados"],
-  ["/system", "System"],
+  ["/apps", "Apps"],
+  ["/engineering", "Engineering"],
   ["/lab", "Lab"],
   ["/about", "About"]
 ] as const;

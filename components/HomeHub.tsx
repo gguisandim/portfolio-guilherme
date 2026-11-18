@@ -7,8 +7,8 @@ import gsap from "gsap";
 
 const worlds = [
   { href: "/web", label: "WEB", note: "interfaces / visual", className: "hub-web" },
-  { href: "/dados", label: "DADOS", note: "analysis / structure", className: "hub-data" },
-  { href: "/system", label: "SYSTEM", note: "platform / infra", className: "hub-system" }
+  { href: "/apps", label: "APPS", note: "products / software", className: "hub-data" },
+  { href: "/engineering", label: "ENGINEERING", note: "code / experiments", className: "hub-system" }
 ];
 
 export function HomeHub() {
@@ -62,7 +62,7 @@ export function HomeHub() {
           <span>GUILHERME</span>
           <span>SANDIM</span>
         </div>
-        <p className="home-subtitle">web · dados · systems</p>
+        <p className="home-subtitle">web · apps · engineering</p>
         <p className="home-description">
           Um portfólio dividido em ambientes. Cada área usa uma interação
           diferente para explicar o tipo de trabalho.

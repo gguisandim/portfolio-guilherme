@@ -1,5 +1,5 @@
-import { DataWorld } from "@/components/DataWorld";
+import { redirect } from "next/navigation";
 
 export default function DadosPage() {
-  return <DataWorld />;
+  redirect("/engineering");
 }
