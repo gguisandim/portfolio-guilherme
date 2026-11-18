@@ -98,7 +98,7 @@ function WindowContent({ id, openFile }: { id: FileId; openFile: (id: FileId) =>
   if (id === "portrait") return (
     <div className="lab-paper-portrait">
       <div className="lab-paper-avatar"><Image src="/avatar.png" width={210} height={210} alt="Avatar ilustrado do autor" /></div>
-      <div><span>FICHA DE IDENTIDADE / GS</span><strong>Guilherme<br />Sandim.</strong><small>uma marca, várias ideias.</small></div>
+      <div><span>FICHA DE IDENTIDADE / GS</span><strong>Guilherme<br />Sandim.</strong></div>
     </div>
   );
   if (id === "about") return (
