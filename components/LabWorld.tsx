@@ -42,8 +42,8 @@ github
 
 > projects
 web/
-dados/
-system/
+apps/
+engineering/
 
 > _`}</pre>
     )
@@ -53,7 +53,7 @@ system/
     body: (
       <p>
         Graduando em Sistemas de Informação pela UFPA, com experiência em
-        desenvolvimento web, dados, suporte e sistemas.
+        desenvolvimento web, aplicações e engenharia de software.
       </p>
     )
   }

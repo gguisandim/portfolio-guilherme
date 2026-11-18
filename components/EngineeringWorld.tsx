@@ -2,38 +2,36 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { engineeringProjects, type EngineeringProject } from "@/data/projects";
 
-function SpecimenArt() {
-  return (
-    <svg viewBox="0 0 320 194" role="img" aria-label="Composição de exemplo com formas geométricas e cores" className="eng-specimen-art">
-      <rect width="320" height="194" fill="#e9ceb0" />
-      <circle cx="87" cy="87" r="59" fill="#c56946" />
-      <path d="M165 0 L300 0 L300 194 L132 194Z" fill="#536f66" />
-      <path d="M177 160 C205 108 240 105 281 128 L320 160 L320 194 L177 194Z" fill="#303f40" />
-      <circle cx="231" cy="63" r="31" fill="#c6bc78" />
-      <rect x="34" y="134" width="109" height="15" rx="2" fill="#f0e5ca" />
-      <rect x="34" y="157" width="75" height="9" rx="2" fill="#f0e5ca" />
-      <path d="M0 32L320 32M0 96L320 96M0 161L320 161M80 0V194M160 0V194M240 0V194" fill="none" stroke="#fff" strokeOpacity=".12" />
-    </svg>
-  );
-}
-
+/** Images are illustrative studies from the approved design reference, not outputs from the linked repository. */
 function ImageExperiment() {
   const [amount, setAmount] = useState(65);
   return (
     <div className="eng-experiment eng-images">
-      <div className="eng-experiment-note">EXPERIMENTO 01 / TRANSFORMAÇÃO VISUAL</div>
+      <div className="eng-experiment-note"><span>01 / VISÃO COMPUTACIONAL</span><span>ESTUDO DE IMAGEM</span></div>
       <div className="eng-image-pair">
-        <figure><SpecimenArt /><figcaption>01 / ENTRADA</figcaption></figure>
-        <figure><div style={{ filter: `grayscale(1) contrast(${1 + amount / 65})` }}><SpecimenArt /></div><figcaption>02 / SAÍDA ILUSTRATIVA</figcaption></figure>
+        <figure>
+          <div className="eng-image-viewport">
+            <Image src="/engineering/leaf-original.webp" alt="Textura e nervuras de uma folha alaranjada" fill sizes="(max-width: 650px) 45vw, (max-width: 1180px) 30vw, 24vw" />
+          </div>
+          <figcaption><span className="eng-caption-dot" />01 / AMOSTRA</figcaption>
+        </figure>
+        <figure>
+          <div className="eng-image-viewport">
+            <Image src="/engineering/leaf-edges.webp" alt="Interpretação visual em preto e branco das nervuras de uma folha" fill sizes="(max-width: 650px) 45vw, (max-width: 1180px) 30vw, 24vw" style={{ filter: `contrast(${0.7 + amount / 100})` }} />
+          </div>
+          <figcaption><span className="eng-caption-dot" />02 / ESTUDO DE BORDAS</figcaption>
+        </figure>
       </div>
+      <div className="eng-process-line" aria-hidden="true"><span>ENTRADA</span><b>→</b><span>TRANSFORMAÇÃO</span><b>→</b><span>SAÍDA</span></div>
       <div className="eng-control-row">
-        <label htmlFor="eng-contrast">CONTRASTE APLICADO</label>
+        <label htmlFor="eng-contrast">CONTRASTE DA SAÍDA</label>
         <input id="eng-contrast" type="range" min="0" max="100" value={amount} onChange={e => setAmount(Number(e.target.value))} />
         <output htmlFor="eng-contrast">{amount}%</output>
       </div>
-      <p className="eng-experiment-help">Ajuste o contraste de uma amostra vetorial. Demonstração conceitual, sem executar o código do repositório.</p>
+      <p className="eng-experiment-help">Estudo visual ilustrativo, não é uma execução do algoritmo do repositório. O controle ajusta o contraste da imagem de saída.</p>
     </div>
   );
 }
@@ -134,37 +132,111 @@ function Specimen({ project }: {project: EngineeringProject}) {
   return <GraphicsExperiment />;
 }
 
+function StudyIcon({ id }: { id: EngineeringProject["id"] }) {
+  if (id === "images") return (
+    <svg viewBox="0 0 76 68" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.15">
+      <path d="M9 54C11 30 32 14 65 8c-2 29-25 49-56 46Z" />
+      <path d="M8 60C27 42 41 28 64 9M27 43l-4-16M27 43l20 1M42 28l-2-12M42 28l15-2" />
+      <path d="M7 62h25" strokeDasharray="2 3" />
+    </svg>
+  );
+  if (id === "umbra") return (
+    <svg viewBox="0 0 76 68" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.15">
+      <path d="M4 56 31 10 44 28 53 16 74 56ZM31 10l5 31 8-13M53 16l-6 28M4 56l25-10 16 10 29 0" />
+      <path d="M16 56c14-5 25-7 40-6" strokeDasharray="2 4" />
+    </svg>
+  );
+  if (id === "distributed") return (
+    <svg viewBox="0 0 76 68" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.15">
+      <path d="M12 16 37 7 61 20 65 49 35 60 10 44 12 16M12 16l23 24 26-20M35 40l30 9M35 40v20M10 44l25-4M37 7l-2 33" />
+      {[[12,16],[37,7],[61,20],[65,49],[35,60],[10,44],[35,40]].map(([cx,cy],i)=><circle key={i} cx={cx} cy={cy} r="3.3" fill="currentColor" stroke="none" />)}
+    </svg>
+  );
+  return (
+    <svg viewBox="0 0 76 68" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.15">
+      <path d="M12 17 40 5 65 21 37 35 12 17ZM12 17v32l25 15V35M37 64l28-17V21M12 49l27-15M65 47 39 33" />
+      <path d="M12 17 37 35 65 21M40 5l-3 30" strokeDasharray="3 3" />
+    </svg>
+  );
+}
+
+function HeroEngraving() {
+  return (
+    <svg className="eng-hero-engraving" viewBox="0 0 360 260" aria-hidden="true" fill="none" stroke="currentColor">
+      <path d="M28 208C62 105 196 28 319 22c-7 111-110 229-291 186Z" strokeWidth="1.7" />
+      <path d="M20 240C106 156 205 74 319 22" strokeWidth="1.9" />
+      {Array.from({length:9},(_,i)=>{
+        const x=63+i*25;
+        const y=194-i*18;
+        return <path key={i} d={`M${x} ${y} Q${x+14} ${y-42} ${x+9} ${Math.max(30,y-71)} M${x} ${y} Q${x-39} ${y-12} ${Math.max(27,x-65)} ${y-32}`} strokeWidth="1" opacity=".68" />;
+      })}
+    </svg>
+  );
+}
+
 export function EngineeringWorld() {
   const [selected, setSelected] = useState(0);
   const project = engineeringProjects[selected];
+  const changeProject = (direction: number) => setSelected(current => (current + direction + engineeringProjects.length) % engineeringProjects.length);
   return (
     <main className="world engineering-world" id="main-content">
       <header className="eng-hero">
-        <div className="eng-hero-meta"><span>PORTFÓLIO / 03</span><span>ESTUDOS DE COMPUTAÇÃO</span><span>FIELD NOTES — VOL. 01</span></div>
-        <div className="eng-hero-copy"><h1>WORK IN<br/><em>PROGRESS.</em></h1><p>Uma coleção de sistemas, algoritmos e experimentos. Aqui, a ideia é abrir o processo e entender como as coisas funcionam.</p></div>
+        <div className="eng-hero-meta"><span>PORTFÓLIO / 03 — ENGENHARIA</span><span>FIELD NOTES / VOL. 01</span></div>
+        <div className="eng-hero-copy">
+          <div className="eng-hero-titles">
+            <h1>ENGINEERING</h1>
+            <p className="eng-hero-subtitle">Caderno de processos</p>
+          </div>
+          <p className="eng-hero-description">Uma coleção de sistemas, algoritmos e experimentos. Aqui, a ideia é abrir o processo e entender como as coisas funcionam — da concepção à implementação.</p>
+          <HeroEngraving />
+        </div>
       </header>
 
       <section className="eng-library" aria-label="Explorador de projetos de engenharia">
         <aside className="eng-index">
           <div className="eng-index-heading"><span>ÍNDICE DE ESTUDOS</span><span>0{engineeringProjects.length} ENTRADAS</span></div>
-          <div role="group" aria-label="Selecionar experimento">
+          <div className="eng-index-list" role="group" aria-label="Selecionar experimento">
             {engineeringProjects.map((entry, index) => (
               <button key={entry.id} type="button" onClick={() => setSelected(index)} aria-pressed={selected === index} className={`eng-index-item ${index === selected ? "is-selected" : ""}`}>
-                <span>0{index+1}</span><span><strong>{entry.title}</strong><small>{entry.discipline}</small></span><span aria-hidden="true">↗</span>
+                <span className="eng-index-icon"><StudyIcon id={entry.id} /></span>
+                <span className="eng-index-number">0{index + 1}</span>
+                <span className="eng-index-text"><strong>{entry.title}</strong><small>{entry.discipline}</small></span>
+                <span className="eng-index-arrow" aria-hidden="true">↗</span>
               </button>
             ))}
           </div>
-          <p className="eng-index-note">Cada demonstração representa um conceito; o código completo está disponível no respectivo repositório.</p>
+          <p className="eng-index-note"><span aria-hidden="true">＋</span> Cada demonstração representa um conceito com código acessível no respectivo repositório.</p>
         </aside>
+
         <div className="eng-sheet" key={project.id}>
-          <div className="eng-sheet-number"><span>FICHA TÉCNICA / 0{selected + 1}</span><span>ENG — 0{selected + 1}</span></div>
-          <div className="eng-sheet-intro"><span className="eng-discipline">{project.discipline}</span><h2>{project.title}</h2><p>{project.observation}</p></div>
-          <div className="eng-sheet-figure"><Specimen project={project}/></div>
-          <div className="eng-sheet-description"><div><span className="eng-field-label">SOBRE O PROJETO</span><p>{project.description}</p></div><div><span className="eng-field-label">FERRAMENTAS / TEMAS</span><div className="eng-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div></div></div>
-          <a href={project.href} target="_blank" rel="noopener noreferrer" className="eng-repo-link">EXPLORAR CÓDIGO-FONTE <span aria-hidden="true">↗</span></a>
+          <div className="eng-sheet-number"><span>EXPERIMENTO 0{selected + 1} / {project.discipline.toUpperCase()}</span><span>ENG — 0{selected + 1}</span></div>
+          <div className="eng-sheet-main">
+            <div className="eng-sheet-figure"><Specimen project={project} /></div>
+            <div className="eng-sheet-caption"><span>FIG. 0{selected + 1} — NOTAS VISUAIS / {project.discipline.toUpperCase()}</span><span>ESTUDO INTERATIVO</span></div>
+          </div>
+          <div className="eng-sheet-aside">
+            <div className="eng-sheet-intro">
+              <span className="eng-side-count">0{selected + 1} / <small>0{engineeringProjects.length}</small></span>
+              <h2>{project.title}</h2>
+              <p className="eng-observation">{project.observation}</p>
+              <p className="eng-description">{project.description}</p>
+            </div>
+            <div className="eng-sheet-info">
+              <span className="eng-field-label">FERRAMENTAS / TEMAS</span>
+              <div className="eng-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
+            </div>
+            <a href={project.href} target="_blank" rel="noopener noreferrer" className="eng-repo-link">EXPLORAR CÓDIGO-FONTE <span aria-hidden="true">↗</span></a>
+          </div>
+          <div className="eng-sheet-navigation">
+            <span>CADERNO DE ESTUDOS — 2026</span>
+            <div className="eng-nav-controls">
+              <button type="button" onClick={() => changeProject(-1)} aria-label="Experimento anterior">← <span>ANTERIOR</span></button>
+              <button type="button" onClick={() => changeProject(1)} aria-label="Próximo experimento"><span>PRÓXIMO</span> →</button>
+            </div>
+          </div>
         </div>
       </section>
-      <footer className="eng-outro"><span>FIM DAS NOTAS / 01</span><Link href="/web">Voltar ao mundo WEB <span aria-hidden="true">↗</span></Link></footer>
+      <footer className="eng-outro"><span>FIM DAS NOTAS / 01</span><Link href="/web">Explorar o mundo WEB <span aria-hidden="true">↗</span></Link></footer>
     </main>
   );
 }

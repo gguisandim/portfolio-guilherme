@@ -77,7 +77,7 @@ export const webProjects: Project[] = [
 
 /** Product narratives live here; previews below are deliberately illustrative, not screenshots. */
 export type AppProject = Project & {
-  id: "sirg" | "wedding" | "pipinho";
+  id: "sirg" | "wedding" | "pipinho" | "electionops";
   category: string;
   focus: string;
   features: [string, string, string];
@@ -120,6 +120,18 @@ export const appsProjects: AppProject[] = [
     flow: ["Telegram", "Node.js", "PostgreSQL"],
     tags: ["TypeScript", "Next.js", "PostgreSQL", "Redis", "Telegram", "IA"]
     // Repositório direto não confirmado: a página oferece uma busca no perfil.
+  },
+  {
+    id: "electionops",
+    title: "Election Ops",
+    category: "Operações eleitorais",
+    focus: "Plataforma para coordenação e acompanhamento operacional",
+    description:
+      "Sistema para apoiar operações eleitorais com gestão de fluxos, monitoramento de etapas e organização de dados em uma arquitetura full-stack.",
+    features: ["Gestão de operações", "Fluxos e acompanhamento", "Arquitetura full-stack"],
+    flow: ["Next.js", "NestJS", "Prisma"],
+    tags: ["TypeScript", "Next.js", "NestJS", "Prisma", "PostgreSQL", "Monorepo", "Testes"],
+    href: "https://github.com/gguisandim/dasi-ap1-election-ops-plataform"
   }
 ];
 

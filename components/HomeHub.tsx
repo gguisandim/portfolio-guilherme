@@ -7,8 +7,8 @@ import gsap from "gsap";
 
 const worlds = [
   { href: "/web", label: "WEB", note: "interfaces / visual", className: "hub-web" },
-  { href: "/apps", label: "APPS", note: "products / software", className: "hub-data" },
-  { href: "/engineering", label: "ENGINEERING", note: "code / experiments", className: "hub-system" }
+  { href: "/apps", label: "APPS", note: "products / software", className: "hub-apps" },
+  { href: "/engineering", label: "ENGINEERING", note: "code / experiments", className: "hub-engineering" }
 ];
 
 export function HomeHub() {

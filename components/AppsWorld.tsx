@@ -1,182 +1,213 @@
 "use client";
 
 import { useEffect, useState, type CSSProperties } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { appsProjects, type AppProject } from "@/data/projects";
 
 /**
- * The artworks are original editorial interpretations of the products,
- * not screenshots, live interfaces or representations of real user data.
+ * Digital art studies created for this portfolio. They are not screenshots of
+ * the applications, and no real user or financial information is represented.
  */
-function MuseumArtwork({ project }: { project: AppProject }) {
-  if (project.id === "sirg") {
-    return (
-      <div className="museum-artwork museum-artwork--sirg" aria-label="Estudo gráfico conceitual dos módulos do SIRG">
-        <span className="museum-artwork-label">01 / SISTEMA DE INFORMAÇÃO</span>
-        <span className="museum-stage-type" aria-hidden="true">S</span>
-        <div className="museum-ledger">
-          <div className="museum-ledger-top"><strong>SIRG<span>↗</span></strong><span>AMBIENTE ACADÊMICO</span></div>
-          <div className="museum-ledger-body">
-            <span className="museum-ledger-kicker">ORGANIZAÇÃO QUE FAZ DIFERENÇA</span>
-            <h3>Menos ruído.<br /><em>Mais controle.</em></h3>
-            <div className="museum-ledger-rows" aria-hidden="true">
-              {[["01", "Registros"], ["02", "Frequência"], ["03", "Relatórios"]].map(([number, label]) => (
-                <div className="museum-ledger-row" key={number}><small>{number}</small><strong>{label}</strong><span>↗</span></div>
-              ))}
-            </div>
-          </div>
-          <div className="museum-ledger-bottom"><span>GESTÃO ACADÊMICA</span><span>01 — 03</span></div>
-        </div>
-        <span className="museum-artwork-index" aria-hidden="true">ACERVO / 001</span>
-      </div>
-    );
-  }
+const artworks: Record<AppProject["id"], {
+  src: string;
+  description: string;
+  title: string;
+  interpretation: string;
+  accent: string;
+  accentSoft: string;
+}> = {
+  sirg: {
+    src: "/artworks/sirg-painting.webp",
+    description: "Pintura abstrata de formas curvas azul-marinho e laranja que reinterpretam o símbolo do SIRG sobre fundo de textura creme.",
+    title: "Forma e organização",
+    interpretation: "Um estudo de ordem, movimento e estrutura.",
+    accent: "#ad4b2e",
+    accentSoft: "#ecd6bf",
+  },
+  wedding: {
+    src: "/artworks/wedding-painting.webp",
+    description: "Duas alianças abstratas sobre pinceladas em tons de terracota, rosa antigo, dourado e ameixa.",
+    title: "Laços e encontros",
+    interpretation: "O encontro entre duas formas como metáfora de conexão.",
+    accent: "#a14b51",
+    accentSoft: "#ead3cf",
+  },
+  pipinho: {
+    src: "/artworks/pipinho-painting.webp",
+    description: "Pintura geométrica de um gato em tom creme, com círculo dourado e planos abstratos em verde petróleo e terracota.",
+    title: "Ritmo e cotidiano",
+    interpretation: "O cotidiano financeiro traduzido em uma forma familiar.",
+    accent: "#3b6c61",
+    accentSoft: "#d5dfd2",
+  },
+  electionops: {
+    src: "/artworks/electionops-painting.webp",
+    description: "Composição abstrata com grades, círculos, arcos e um gesto que lembra urna e cédula, em azul profundo, ferrugem, ocre e creme.",
+    title: "Coordenação e decisão",
+    interpretation: "Fluxos, governança e operação organizados em tensão geométrica.",
+    accent: "#8f5433",
+    accentSoft: "#e6d5be",
+  },
+};
 
-  if (project.id === "wedding") {
-    return (
-      <div className="museum-artwork museum-artwork--wedding" aria-label="Estudo gráfico conceitual de convites e confirmações do Wedding BF">
-        <span className="museum-artwork-label">02 / EXPERIÊNCIA & CONEXÃO</span>
-        <span className="museum-stage-type" aria-hidden="true">W</span>
-        <div className="museum-invitation">
-          <div className="museum-invitation-top"><span>WEDDING / BF</span><span>✳</span></div>
-          <div className="museum-invitation-center">
-            <small>UM CONVITE. TANTAS HISTÓRIAS.</small>
-            <strong>O especial<br />é estar <i>junto.</i></strong>
-            <p>Uma experiência feita para reunir pessoas.</p>
-          </div>
-          <div className="museum-invitation-footer"><span>CONVIDAR</span><span>CONFIRMAR</span><span>CELEBRAR</span></div>
-        </div>
-        <div className="museum-wedding-stamp" aria-hidden="true"><span>RSVP</span><small>↗</small></div>
-        <span className="museum-artwork-index" aria-hidden="true">ACERVO / 002</span>
-      </div>
-    );
-  }
-
-  return (
-    <div className="museum-artwork museum-artwork--pipinho" aria-label="Estudo gráfico conceitual do fluxo Telegram, inteligência artificial e histórico financeiro do Pipinho Finance">
-      <span className="museum-artwork-label">03 / FINANÇAS & TECNOLOGIA</span>
-      <span className="museum-stage-type" aria-hidden="true">P</span>
-      <div className="museum-pipinho">
-        <div className="museum-pipinho-top"><strong>pipinho<span>.</span></strong><span>FINANCE / 01</span></div>
-        <div className="museum-pipinho-main">
-          <h3>Suas finanças.<br /><i>No seu ritmo.</i></h3>
-          <div className="museum-pipinho-dialog" aria-hidden="true">
-            <span className="museum-dialog-source">TELEGRAM / MENSAGEM</span>
-            <div className="museum-dialog-bubble"><span>↗</span> Registrar uma despesa</div>
-            <div className="museum-dialog-response"><span className="museum-response-dot" /> Interpretar e organizar com IA</div>
-          </div>
-        </div>
-        <div className="museum-pipinho-flow" aria-hidden="true">
-          <span>01 / CONVERSAR</span><b>→</b><span>02 / INTERPRETAR</span><b>→</b><span>03 / ORGANIZAR</span>
-        </div>
-      </div>
-      <span className="museum-artwork-index" aria-hidden="true">ACERVO / 003</span>
-    </div>
-  );
+function exhibitNumber(index: number) {
+  return String(index + 1).padStart(2, "0");
 }
 
-const museumThemes: Record<AppProject["id"], CSSProperties> = {
-  sirg: { "--museum-accent": "#ccf05c", "--museum-accent-strong": "#285c4a", "--museum-accent-light": "#e3efb9" } as CSSProperties,
-  wedding: { "--museum-accent": "#e78c7b", "--museum-accent-strong": "#a64539", "--museum-accent-light": "#f9ddd2" } as CSSProperties,
-  pipinho: { "--museum-accent": "#e9f18f", "--museum-accent-strong": "#2f5940", "--museum-accent-light": "#edf3c9" } as CSSProperties,
-};
+function appsSummary(count: number) {
+  const words: Record<number, string> = {
+    1: "Uma",
+    2: "Duas",
+    3: "Três",
+    4: "Quatro",
+    5: "Cinco",
+    6: "Seis",
+  };
+  const numberWord = words[count] ?? String(count);
+  return `${numberWord} aplicações. ${numberWord} formas de resolver problemas reais.`;
+}
 
 export function AppsWorld() {
   const [selected, setSelected] = useState(0);
-  const project = appsProjects[selected];
   const count = appsProjects.length;
+  const project = appsProjects[selected];
+  const artwork = artworks[project.id];
   const choose = (index: number) => setSelected((index + count) % count);
-  const number = (index: number) => String(index + 1).padStart(2, "0");
+  const theme = {
+    "--museum-accent": artwork.accent,
+    "--museum-accent-soft": artwork.accentSoft,
+  } as CSSProperties;
 
   useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement | null;
-      if (target?.closest("input, textarea, select, [contenteditable='true']")) return;
-      if (event.key === "ArrowRight") choose(selected + 1);
-      if (event.key === "ArrowLeft") choose(selected - 1);
+    const handleArrow = (event: KeyboardEvent) => {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      const target = event.target;
+      if (target instanceof HTMLElement && target.closest("input, textarea, select, button, a, [contenteditable='true']")) return;
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      setSelected((index) => (index + (event.key === "ArrowRight" ? 1 : -1) + appsProjects.length) % appsProjects.length);
     };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [selected, count]);
+    window.addEventListener("keydown", handleArrow);
+    return () => window.removeEventListener("keydown", handleArrow);
+  }, []);
 
   return (
-    <main className="world apps-world museum-world" id="main-content" style={museumThemes[project.id]}>
+    <main className="world apps-world museum-world" id="main-content" style={theme}>
       <header className="museum-hero">
         <div className="museum-hero-main">
           <p className="museum-overline">PORTFÓLIO / 02 — COLEÇÃO DIGITAL</p>
           <h1>Software <em>em exposição.</em></h1>
-          <span className="museum-hero-undertext">Projetos que existem além do código.</span>
+          <p className="museum-hero-undertext">Projetos que existem além do código.</p>
         </div>
         <div className="museum-hero-side">
-          <span className="museum-hero-side-number" aria-hidden="true">03<span>✳</span></span>
-          <p>Três aplicações. Três formas de resolver problemas reais.</p>
-          <span className="museum-hero-side-caption">ACERVO DE PRODUTOS DIGITAIS</span>
+          <span className="museum-hero-side-number">{exhibitNumber(count)}</span>
+          <p>{appsSummary(count)}</p>
+          <span className="museum-hero-side-caption">ACERVO DIGITAL / 2026</span>
         </div>
       </header>
 
-      <section className="museum-gallery" aria-label="Museu de software: seleção de projetos">
+      <section className="museum-gallery" aria-label="Exposição de aplicações">
         <aside className="museum-index">
-          <div className="museum-index-heading"><span>ESCOLHA UMA OBRA</span><span>0{count} PROJETOS</span></div>
-          <nav aria-label="Projetos da exposição" className="museum-index-list">
+          <div className="museum-index-heading">
+            <span>ESCOLHA UMA OBRA</span>
+            <span>{exhibitNumber(count)} PROJETOS</span>
+          </div>
+          <nav aria-label="Obras do acervo" className="museum-index-list">
             {appsProjects.map((entry, index) => (
-              <button key={entry.id} type="button" className={`museum-index-item museum-index-item--${entry.id} ${index === selected ? "is-current" : ""}`}
-                onClick={() => choose(index)} aria-pressed={index === selected}
-                aria-label={`Ver projeto ${number(index)}: ${entry.title}`}>
-                <span className="museum-index-num">{number(index)}</span>
-                <span className="museum-index-info"><strong>{entry.title}</strong><small>{entry.category}</small></span>
-                <span className="museum-index-symbol" aria-hidden="true">{index === selected ? "●" : "↗"}</span>
+              <button
+                key={entry.id}
+                type="button"
+                className={`museum-index-item ${selected === index ? "is-current" : ""}`}
+                onClick={() => choose(index)}
+                aria-pressed={selected === index}
+                aria-label={`Exibir obra ${exhibitNumber(index)}: ${entry.title}`}
+              >
+                <span className="museum-index-thumbnail">
+                  <Image src={artworks[entry.id].src} alt="" fill sizes="(max-width: 640px) 48px, 64px" />
+                </span>
+                <span className="museum-index-text">
+                  <span className="museum-index-title"><small>{exhibitNumber(index)}</small>{entry.title}</span>
+                  <span className="museum-index-category">{entry.category}</span>
+                </span>
+                <span className="museum-index-marker" aria-hidden="true">{selected === index ? "●" : ""}</span>
               </button>
             ))}
           </nav>
-          <div className="museum-index-tail" aria-hidden="true"><span>EXPOSIÇÃO INTERATIVA</span><span className="museum-index-tail-line" /></div>
+          <div className="museum-index-note">
+            <span>EXPOSIÇÃO INTERATIVA</span>
+            <p>Uma coleção de aplicações com propósitos distintos e identidades próprias.</p>
+          </div>
         </aside>
 
-        <div className="museum-room" aria-label={`Sala ${number(selected)}: ${project.title}`}>
+        <div className="museum-room">
           <div className="museum-room-header">
-            <span>COLEÇÃO / <strong>{number(selected)}</strong> <span className="museum-room-fraction">— {number(count)}</span></span>
+            <span>COLEÇÃO / {exhibitNumber(selected)} — {exhibitNumber(count)}</span>
             <div className="museum-progress" aria-label={`Projeto ${selected + 1} de ${count}`}>
-              {appsProjects.map((entry, i) => <button key={entry.id} className={i === selected ? "is-on" : ""} onClick={() => choose(i)} type="button" aria-label={`Ir para ${entry.title}`} aria-pressed={i === selected} />)}
+              {appsProjects.map((entry, index) => (
+                <button key={entry.id} type="button" onClick={() => choose(index)}
+                  className={selected === index ? "is-on" : ""}
+                  aria-label={`Selecionar ${entry.title}`} aria-pressed={selected === index} />
+              ))}
             </div>
           </div>
-          <div className="museum-room-content" key={project.id}>
+
+          <div key={project.id} className="museum-room-content">
             <figure className="museum-artwork-frame">
-              <MuseumArtwork project={project} />
-              <figcaption><span>FIG. {number(selected)}</span> ESTUDO GRÁFICO CONCEITUAL · NÃO É A INTERFACE REAL</figcaption>
+              <div className="museum-painting-wrap">
+                <Image
+                  src={artwork.src}
+                  alt={artwork.description}
+                  fill
+                  priority={selected === 0}
+                  sizes="(max-width: 780px) 92vw, (max-width: 1130px) 55vw, 42vw"
+                  className="museum-painting"
+                />
+              </div>
+              <figcaption>
+                <span>FIG. {exhibitNumber(selected)} — {artwork.title.toUpperCase()}, 2026</span>
+                <span>ESTUDO PICTÓRICO DIGITAL</span>
+              </figcaption>
             </figure>
-            <div className="museum-plaque">
+
+            <article className="museum-plaque" aria-labelledby="museum-project-title">
               <div className="museum-plaque-main">
-                <span className="museum-plaque-kicker"><i aria-hidden="true" /> OBRA {number(selected)} / {project.category.toUpperCase()}</span>
-                <h2>{project.title}</h2>
+                <span className="museum-plaque-kicker">OBRA {exhibitNumber(selected)} / {project.category.toUpperCase()}</span>
+                <h2 id="museum-project-title">{project.title}</h2>
                 <p className="museum-plaque-lead">{project.focus}</p>
                 <p className="museum-plaque-description">{project.description}</p>
+                <p className="museum-art-interpretation">“{artwork.interpretation}”</p>
                 <div className="museum-feature-area">
-                  <span className="museum-small-label">POR DENTRO DO PROJETO</span>
-                  <ul>{project.features.map((feature, i) => <li key={feature}><span>0{i + 1}</span>{feature}</li>)}</ul>
+                  <h3>POR DENTRO DO PROJETO</h3>
+                  <ol>
+                    {project.features.map((feature, index) => (
+                      <li key={feature}><span>{exhibitNumber(index)}</span>{feature}</li>
+                    ))}
+                  </ol>
                 </div>
               </div>
               <div className="museum-plaque-bottom">
                 <div className="museum-technologies" aria-label="Tecnologias utilizadas">
-                  {project.tags.map(tag => <span key={tag}>{tag}</span>)}
+                  {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
                 </div>
-                {project.href ? (
-                  <a className="museum-project-link" href={project.href} target="_blank" rel="noopener noreferrer">Explorar repositório <span aria-hidden="true">↗</span></a>
-                ) : (
-                  <a className="museum-project-link" href="https://github.com/gguisandim?tab=repositories&q=pipinho" target="_blank" rel="noopener noreferrer">Buscar no GitHub <span aria-hidden="true">↗</span></a>
-                )}
+                <a className="museum-project-link"
+                  href={project.href ?? "https://github.com/gguisandim?tab=repositories&q=pipinho"}
+                  target="_blank" rel="noopener noreferrer">
+                  {project.href ? "Explorar repositório" : "Buscar no GitHub"}
+                  <span aria-hidden="true">↗</span>
+                </a>
               </div>
-            </div>
+            </article>
           </div>
           <div className="museum-room-navigation">
-            <span>0{selected + 1} <i>/</i> 0{count} <small>USE ← → PARA NAVEGAR</small></span>
+            <span>OBRA {exhibitNumber(selected)} DE {exhibitNumber(count)} <small>USE ← → PARA NAVEGAR</small></span>
             <div className="museum-navigation-buttons">
-              <button onClick={() => choose(selected - 1)} type="button" aria-label="Projeto anterior"><span aria-hidden="true">←</span> ANTERIOR</button>
-              <button className="museum-next-button" onClick={() => choose(selected + 1)} type="button" aria-label="Próximo projeto">PRÓXIMO <span aria-hidden="true">→</span></button>
+              <button type="button" onClick={() => choose(selected - 1)} aria-label="Exposição anterior">← <span>ANTERIOR</span></button>
+              <button type="button" onClick={() => choose(selected + 1)} aria-label="Próxima exposição"><span>PRÓXIMA</span> →</button>
             </div>
           </div>
         </div>
       </section>
-
-      <footer className="museum-footer"><span>FIM DA EXPOSIÇÃO / 02</span><Link href="/engineering">Próxima coleção: Engineering <span aria-hidden="true">↗</span></Link></footer>
+      <footer className="museum-footer"><span>FIM DA EXPOSIÇÃO / 02</span><Link href="/engineering">Próxima coleção: Engineering ↗</Link></footer>
     </main>
   );
 }

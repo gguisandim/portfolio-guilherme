@@ -1,56 +1,66 @@
-# Guilherme Sandim — Portfólio multipágina
+# Guilherme Sandim — portfólio
 
-Portfólio Next.js com três áreas de projetos e duas seções pessoais.
+Projeto Next.js 16 com React 19, TypeScript, CSS e GSAP. Esta edição mantém as áreas **WEB**, **APPS**, **ENGINEERING**, **LAB** e **ABOUT**.
 
-## Iniciar
+## Executar localmente
+
+Requisitos: Node.js compatível com Next.js 16 (20.9+), npm.
 
 ```bash
-npm install
+npm ci
 npm run dev
 ```
 
-Abra `http://localhost:3000`.
+Abra `http://localhost:3000`. Para verificar antes de publicar:
+
+```bash
+npm run typecheck
+npm run build
+```
 
 ## Rotas
 
-| Rota | Conteúdo |
-| --- | --- |
-| `/` | Hub de navegação |
-| `/web` | Projetos visuais, preservados da versão original |
-| `/apps` | Museu de Software: SIRG, Wedding BF e Pipinho Finance |
-| `/engineering` | Field Notes: Processamento de Imagens, Umbra Trail, Sistema Distribuído e Computação Gráfica |
-| `/lab` | Desktop experimental |
-| `/about` | Página de apresentação |
-| `/dados` | Redirecionamento para `/engineering` |
-| `/system` | Redirecionamento para `/apps` |
+- `/` — página inicial
+- `/web` — projetos de interfaces e sites
+- `/apps` — Museu de Software: SIRG, Wedding BF e Pipinho Finance
+- `/engineering` — experimentos de computação e engenharia
+- `/lab` — desktop experimental
+- `/about` — apresentação
+- `/dados` → `/engineering` (redirecionamento de compatibilidade)
+- `/system` → `/apps` (redirecionamento de compatibilidade)
 
-## O que foi alterado
+## Conteúdo e personalização
 
-- Criados `components/AppsWorld.tsx` e `components/EngineeringWorld.tsx`.
-- Home e navegação atualizadas para WEB / APPS / ENGINEERING.
-- Atualizada a curadoria em `data/projects.ts`.
-- Adicionados estilos específicos ao final de `app/globals.css`, removidos os estilos obsoletos de DATA e SYSTEM.
-- Removidos `components/DataWorld.tsx` e `components/SystemWorld.tsx`.
-- Mantidas as áreas WEB, LAB e ABOUT.
+- `data/projects.ts`: projetos, descrições e links.
+- `components/AppsWorld.tsx`: Museu de Software; peças visuais conceituais, não capturas do software real.
+- `components/EngineeringWorld.tsx`: experimentos visuais didáticos; não executam o código dos repositórios.
+- `components/WebWorld.tsx`: mundo WEB.
+- `components/LabWorld.tsx` e `components/AboutWorld.tsx`: seções pessoais.
+- `app/globals.css`: estilos e breakpoints.
+- `public/projects/`: imagens dos projetos WEB.
+- `public/og.png` e `public/favicon.svg`: compartilhamento e favicon. O endereço base dos metadados pode ser ajustado em `app/layout.tsx`.
 
-## Interações
+O link específico do Pipinho Finance não estava confirmado no material: a exposição abre uma pesquisa de repositórios no perfil. Substitua por um `href` real em `data/projects.ts` quando disponível.
 
-**APPS** é uma exposição minimalista de três aplicações: índice de obras, visualização editorial específica de cada produto, descrição, funcionalidades, tecnologias e navegação anterior/próximo. Os visuais são **estudos conceituais**, não screenshots reais.
+## Limpeza realizada
 
-**ENGINEERING** mostra uma ficha para cada estudo, com um pequeno experimento ilustrativo: filtro de imagem, variantes visuais de um tilemap, passos da troca de mensagens e rotação de um wireframe. Essas demonstrações **não executam o código dos repositórios** nem representam resultados verificados.
+Foram removidos componentes desativados do antigo DATA/SYSTEM e arquivos não utilizados da estrutura paralela de Vite, Vinext, Cloudflare Worker, Drizzle e autenticação ChatGPT. Foi removida a configuração PostCSS/Tailwind, não usada pelo CSS do portfólio. O CSS recebeu deduplicação nas media queries de WEB, remoção de regras de APPS legadas e correção da animação de ENGINEERING.
 
-## Personalização
+**Observação:** este pacote não inclui `node_modules`, caches nem segredos. Rode `npm ci` depois de extrair. A compilação completa depende das dependências instaladas localmente.
 
-- Dados e links: `data/projects.ts`.
-- Museu de Software e estudos visuais APPS: `components/AppsWorld.tsx`.
-- Experimentos ENGINEERING: `components/EngineeringWorld.tsx`.
-- Layout e responsividade: final de `app/globals.css`.
-- Outros projetos visuais: `public/projects/`.
+## APPS — Museu de Software (edição pictórica)
 
-Para substituir um estudo conceitual por uma captura real de aplicação, adicione a imagem em `public/projects/` e adapte a função `MuseumArtwork` no `components/AppsWorld.tsx` para utilizar `Image` do Next.js. O link direto do GitHub do Pipinho Finance não foi confirmado; ajuste o campo `href` em `data/projects.ts` quando tiver o endereço.
+A página `/apps` apresenta os projetos como obras de um acervo digital.
+Cada projeto possui uma pintura conceitual própria, independente de capturas reais
+ou dados de usuários:
 
-## APPS — Museu de Software (edição visual 02)
+- `public/artworks/sirg-painting.webp`: reinterpretação pictórica do símbolo do SIRG;
+- `public/artworks/wedding-painting.webp`: composição abstrata com alianças;
+- `public/artworks/pipinho-painting.webp`: gato geométrico com elementos circulares.
 
-A seção `/apps` usa uma galeria editorial de três aplicações (SIRG, Wedding BF e Pipinho Finance). Cada obra possui uma representação visual **conceitual**, não uma captura real da aplicação. A seleção funciona pela lista lateral, pelos indicadores, pelos botões anterior/próximo e pelas teclas de seta esquerda/direita. O layout possui versão responsiva e respeita `prefers-reduced-motion`.
+O componente `components/AppsWorld.tsx` controla a seleção das obras e os metadados
+visuais. O conteúdo técnico continua em `data/projects.ts`. É possível navegar
+pelos botões, pelo índice ou pelas setas ← → quando o foco não está em controles.
 
-Para editar a página: `components/AppsWorld.tsx`; estilos específicos de APPS ficam no fim de `app/globals.css`, no bloco identificado por `APPS / MUSEU DE SOFTWARE — edição 02`. As demais páginas permanecem como antes.
+O link público direto do repositório Pipinho Finance ainda não foi confirmado;
+por isso o botão desse projeto abre uma pesquisa no perfil GitHub, sem supor URL.
