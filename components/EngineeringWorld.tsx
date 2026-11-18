@@ -1,9 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { engineeringProjects, type EngineeringProject } from "@/data/projects";
+import { ProjectReadingDialog } from "@/components/ProjectReadingDialog";
 
 /** Images are illustrative studies from the approved design reference, not outputs from the linked repository. */
 function ImageExperiment() {
@@ -176,8 +177,24 @@ function HeroEngraving() {
 
 export function EngineeringWorld() {
   const [selected, setSelected] = useState(0);
+  const [isReading, setIsReading] = useState(false);
+  const readingButtonRef = useRef<HTMLButtonElement>(null);
   const project = engineeringProjects[selected];
   const changeProject = (direction: number) => setSelected(current => (current + direction + engineeringProjects.length) % engineeringProjects.length);
+
+  useEffect(() => {
+    if (isReading) return;
+    const handleArrow = (event: KeyboardEvent) => {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      const target = event.target;
+      if (target instanceof HTMLElement && target.closest("input, textarea, select, button, a, [contenteditable='true']")) return;
+      if (event.key !== "ArrowRight" && event.key !== "ArrowLeft") return;
+      setSelected((index) => (index + (event.key === "ArrowRight" ? 1 : -1) + engineeringProjects.length) % engineeringProjects.length);
+    };
+    window.addEventListener("keydown", handleArrow);
+    return () => window.removeEventListener("keydown", handleArrow);
+  }, [isReading]);
+
   return (
     <main className="world engineering-world" id="main-content">
       <header className="eng-hero">
@@ -225,7 +242,17 @@ export function EngineeringWorld() {
               <span className="eng-field-label">FERRAMENTAS / TEMAS</span>
               <div className="eng-tags">{project.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
             </div>
-            <a href={project.href} target="_blank" rel="noopener noreferrer" className="eng-repo-link">EXPLORAR CÓDIGO-FONTE <span aria-hidden="true">↗</span></a>
+            <div className="eng-project-actions">
+              <button
+                ref={readingButtonRef}
+                type="button"
+                className="eng-read-button"
+                onClick={() => setIsReading(true)}
+              >
+                LER SOBRE O PROJETO <span aria-hidden="true">→</span>
+              </button>
+              <a href={project.href} target="_blank" rel="noopener noreferrer" className="eng-repo-link">EXPLORAR CÓDIGO-FONTE <span aria-hidden="true">↗</span></a>
+            </div>
           </div>
           <div className="eng-sheet-navigation">
             <span>CADERNO DE ESTUDOS — 2026</span>
@@ -237,6 +264,19 @@ export function EngineeringWorld() {
         </div>
       </section>
       <footer className="eng-outro"><span>FIM DAS NOTAS / 01</span><Link href="/web">Explorar o mundo WEB <span aria-hidden="true">↗</span></Link></footer>
+      <ProjectReadingDialog
+        open={isReading}
+        onClose={() => setIsReading(false)}
+        returnFocusRef={readingButtonRef}
+        variant="engineering"
+        indexLabel={`FIELD NOTE / EXPERIMENTO 0${selected + 1}`}
+        eyebrow={project.discipline}
+        title={project.title}
+        lead={project.observation}
+        paragraphs={project.longDescription}
+        tags={project.tags}
+        href={project.href}
+      />
     </main>
   );
 }

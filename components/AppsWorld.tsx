@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { appsProjects, type AppProject } from "@/data/projects";
+import { ProjectReadingDialog } from "@/components/ProjectReadingDialog";
 
 /**
  * Digital art studies created for this portfolio. They are not screenshots of
@@ -70,6 +71,8 @@ function appsSummary(count: number) {
 
 export function AppsWorld() {
   const [selected, setSelected] = useState(0);
+  const [isReading, setIsReading] = useState(false);
+  const readingButtonRef = useRef<HTMLButtonElement>(null);
   const count = appsProjects.length;
   const project = appsProjects[selected];
   const artwork = artworks[project.id];
@@ -80,6 +83,7 @@ export function AppsWorld() {
   } as CSSProperties;
 
   useEffect(() => {
+    if (isReading) return;
     const handleArrow = (event: KeyboardEvent) => {
       if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
       const target = event.target;
@@ -89,7 +93,7 @@ export function AppsWorld() {
     };
     window.addEventListener("keydown", handleArrow);
     return () => window.removeEventListener("keydown", handleArrow);
-  }, []);
+  }, [isReading]);
 
   return (
     <main className="world apps-world museum-world" id="main-content" style={theme}>
@@ -189,12 +193,22 @@ export function AppsWorld() {
                 <div className="museum-technologies" aria-label="Tecnologias utilizadas">
                   {project.tags.map((tag) => <span key={tag}>{tag}</span>)}
                 </div>
-                <a className="museum-project-link"
-                  href={project.href ?? "https://github.com/gguisandim?tab=repositories&q=pipinho"}
-                  target="_blank" rel="noopener noreferrer">
-                  {project.href ? "Explorar repositório" : "Buscar no GitHub"}
-                  <span aria-hidden="true">↗</span>
-                </a>
+                <div className="museum-project-actions">
+                  <button
+                    ref={readingButtonRef}
+                    type="button"
+                    className="museum-read-button"
+                    onClick={() => setIsReading(true)}
+                  >
+                    Ler sobre o projeto <span aria-hidden="true">→</span>
+                  </button>
+                  <a className="museum-project-link"
+                    href={project.href ?? "https://github.com/gguisandim?tab=repositories&q=pipinho"}
+                    target="_blank" rel="noopener noreferrer">
+                    {project.href ? "Explorar repositório" : "Buscar no GitHub"}
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                </div>
               </div>
             </article>
           </div>
@@ -208,6 +222,19 @@ export function AppsWorld() {
         </div>
       </section>
       <footer className="museum-footer"><span>FIM DA EXPOSIÇÃO / 02</span><Link href="/engineering">Próxima coleção: Engineering ↗</Link></footer>
+      <ProjectReadingDialog
+        open={isReading}
+        onClose={() => setIsReading(false)}
+        returnFocusRef={readingButtonRef}
+        variant="museum"
+        indexLabel={`CATÁLOGO / OBRA ${exhibitNumber(selected)}`}
+        eyebrow={project.category}
+        title={project.title}
+        lead={project.focus}
+        paragraphs={project.longDescription}
+        tags={project.tags}
+        href={project.href}
+      />
     </main>
   );
 }
