@@ -63,10 +63,6 @@ export function HomeHub() {
           <span>SANDIM</span>
         </div>
         <p className="home-subtitle">web · apps · engineering</p>
-        <p className="home-description">
-          Um portfólio dividido em ambientes. Cada área usa uma interação
-          diferente para explicar o tipo de trabalho.
-        </p>
         <div className="home-small-links">
           <Link href="/about">about.txt</Link>
           <a href="https://github.com/gguisandim" target="_blank" rel="noreferrer">

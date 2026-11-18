@@ -254,10 +254,6 @@ export function WebWorld() {
         <p className="world-code web-kicker">WEB ARCADE // WORLD 01</p>
         <AnimatedTitle lines={["PIXEL", "PORTALS"]} className="web-title" />
         <p className="web-note">arraste para o lado ou use as setas</p>
-        <p className="web-caption">
-          Cards mais verticais, com atmosfera azul escura e cenário reativo para
-          cada site.
-        </p>
       </section>
 
       <section className="web-stage-wrap">

@@ -14,7 +14,6 @@ const artworks: Record<AppProject["id"], {
   src: string;
   description: string;
   title: string;
-  interpretation: string;
   accent: string;
   accentSoft: string;
 }> = {
@@ -22,7 +21,6 @@ const artworks: Record<AppProject["id"], {
     src: "/artworks/sirg-painting.webp",
     description: "Pintura abstrata de formas curvas azul-marinho e laranja que reinterpretam o símbolo do SIRG sobre fundo de textura creme.",
     title: "Forma e organização",
-    interpretation: "Um estudo de ordem, movimento e estrutura.",
     accent: "#ad4b2e",
     accentSoft: "#ecd6bf",
   },
@@ -30,7 +28,6 @@ const artworks: Record<AppProject["id"], {
     src: "/artworks/wedding-painting.webp",
     description: "Duas alianças abstratas sobre pinceladas em tons de terracota, rosa antigo, dourado e ameixa.",
     title: "Laços e encontros",
-    interpretation: "O encontro entre duas formas como metáfora de conexão.",
     accent: "#a14b51",
     accentSoft: "#ead3cf",
   },
@@ -38,7 +35,6 @@ const artworks: Record<AppProject["id"], {
     src: "/artworks/pipinho-painting.webp",
     description: "Pintura geométrica de um gato em tom creme, com círculo dourado e planos abstratos em verde petróleo e terracota.",
     title: "Ritmo e cotidiano",
-    interpretation: "O cotidiano financeiro traduzido em uma forma familiar.",
     accent: "#3b6c61",
     accentSoft: "#d5dfd2",
   },
@@ -46,7 +42,6 @@ const artworks: Record<AppProject["id"], {
     src: "/artworks/electionops-painting.webp",
     description: "Composição abstrata com grades, círculos, arcos e um gesto que lembra urna e cédula, em azul profundo, ferrugem, ocre e creme.",
     title: "Coordenação e decisão",
-    interpretation: "Fluxos, governança e operação organizados em tensão geométrica.",
     accent: "#8f5433",
     accentSoft: "#e6d5be",
   },
@@ -54,6 +49,10 @@ const artworks: Record<AppProject["id"], {
 
 function exhibitNumber(index: number) {
   return String(index + 1).padStart(2, "0");
+}
+
+function exhibitCount(count: number) {
+  return String(count).padStart(2, "0");
 }
 
 function appsSummary(count: number) {
@@ -104,7 +103,7 @@ export function AppsWorld() {
           <p className="museum-hero-undertext">Projetos que existem além do código.</p>
         </div>
         <div className="museum-hero-side">
-          <span className="museum-hero-side-number">{exhibitNumber(count)}</span>
+          <span className="museum-hero-side-number">{exhibitCount(count)}</span>
           <p>{appsSummary(count)}</p>
           <span className="museum-hero-side-caption">ACERVO DIGITAL / 2026</span>
         </div>
@@ -114,7 +113,7 @@ export function AppsWorld() {
         <aside className="museum-index">
           <div className="museum-index-heading">
             <span>ESCOLHA UMA OBRA</span>
-            <span>{exhibitNumber(count)} PROJETOS</span>
+            <span>{exhibitCount(count)} PROJETOS</span>
           </div>
           <nav aria-label="Obras do acervo" className="museum-index-list">
             {appsProjects.map((entry, index) => (
@@ -145,7 +144,7 @@ export function AppsWorld() {
 
         <div className="museum-room">
           <div className="museum-room-header">
-            <span>COLEÇÃO / {exhibitNumber(selected)} — {exhibitNumber(count)}</span>
+            <span>COLEÇÃO / {exhibitNumber(selected)} — {exhibitCount(count)}</span>
             <div className="museum-progress" aria-label={`Projeto ${selected + 1} de ${count}`}>
               {appsProjects.map((entry, index) => (
                 <button key={entry.id} type="button" onClick={() => choose(index)}
@@ -179,7 +178,6 @@ export function AppsWorld() {
                 <h2 id="museum-project-title">{project.title}</h2>
                 <p className="museum-plaque-lead">{project.focus}</p>
                 <p className="museum-plaque-description">{project.description}</p>
-                <p className="museum-art-interpretation">“{artwork.interpretation}”</p>
                 <div className="museum-feature-area">
                   <h3>POR DENTRO DO PROJETO</h3>
                   <ol>
@@ -213,7 +211,7 @@ export function AppsWorld() {
             </article>
           </div>
           <div className="museum-room-navigation">
-            <span>OBRA {exhibitNumber(selected)} DE {exhibitNumber(count)} <small>USE ← → PARA NAVEGAR</small></span>
+            <span>OBRA {exhibitNumber(selected)} DE {exhibitCount(count)} <small>USE ← → PARA NAVEGAR</small></span>
             <div className="museum-navigation-buttons">
               <button type="button" onClick={() => choose(selected - 1)} aria-label="Exposição anterior">← <span>ANTERIOR</span></button>
               <button type="button" onClick={() => choose(selected + 1)} aria-label="Próxima exposição"><span>PRÓXIMA</span> →</button>

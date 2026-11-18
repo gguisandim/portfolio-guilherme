@@ -204,7 +204,6 @@ export function EngineeringWorld() {
             <h1>ENGINEERING</h1>
             <p className="eng-hero-subtitle">Caderno de processos</p>
           </div>
-          <p className="eng-hero-description">Uma coleção de sistemas, algoritmos e experimentos. Aqui, a ideia é abrir o processo e entender como as coisas funcionam — da concepção à implementação.</p>
           <HeroEngraving />
         </div>
       </header>
@@ -222,7 +221,6 @@ export function EngineeringWorld() {
               </button>
             ))}
           </div>
-          <p className="eng-index-note"><span aria-hidden="true">＋</span> Cada demonstração representa um conceito com código acessível no respectivo repositório.</p>
         </aside>
 
         <div className="eng-sheet" key={project.id}>
