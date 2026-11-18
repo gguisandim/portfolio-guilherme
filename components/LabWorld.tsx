@@ -19,7 +19,7 @@ const files: Record<FileId, FileInfo> = {
   portrait: { name: "avatar.bmp", label: "identidade", code: "01", glyph: "▧" },
   terminal: { name: "terminal.exe", label: "linha de comando", code: "02", glyph: ">_" },
   about: { name: "about.txt", label: "sobre mim", code: "03", glyph: "≡" },
-  art: { name: "formas.canvas", label: "arte generativa", code: "04", glyph: "✳" },
+  art: { name: "formas.canvas", label: "formas generativas", code: "04", glyph: "✳" },
   algorithm: { name: "caminhos.alg", label: "busca de rotas", code: "05", glyph: "⌗" },
   network: { name: "internet.net", label: "simulador de redes", code: "06", glyph: "◎" },
 };

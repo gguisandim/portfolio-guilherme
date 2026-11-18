@@ -55,7 +55,7 @@ export function AboutWorld() {
             <span className="about-sticker about-paper about-sticker-mid">E UM POUCO DE</span>
           </span>
           <span className="about-line about-line-last" aria-hidden="true">
-            <span className="about-sticker about-green about-sticker-art">ARTE.</span>
+            <span className="about-sticker about-green about-sticker-art">CRIATIVIDADE</span>
             <span className="about-doodle" aria-hidden="true">✳</span>
           </span>
         </h1>

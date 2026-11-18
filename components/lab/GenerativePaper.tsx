@@ -105,7 +105,7 @@ export function GenerativePaper() {
 
   return (
     <div className="mural-experiment mural-art-experiment">
-      <canvas ref={canvasRef} width={640} height={356} aria-label="Composição de arte generativa desenhada em Canvas" />
+      <canvas ref={canvasRef} width={640} height={356} aria-label="Composição de formas generativas desenhada em Canvas" />
       <div className="mural-tool-row">
         <div className="mural-segmented" aria-label="Tipo de arte">
           <button type="button" className={pattern === "tramas" ? "is-selected" : ""} aria-pressed={pattern === "tramas"} onClick={() => setPattern("tramas")}>tramas</button>
